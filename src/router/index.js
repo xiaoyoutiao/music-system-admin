@@ -110,6 +110,32 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/user',
+    name: 'Search',
+    component: Layout,
+    meta: { title: '用户管理', icon: 'user' },
+    children: [
+      {
+        path: '/user/list',
+        name: 'UserList',
+        component: () => import('@/views/user/list'),
+        meta: { title: '用户列表', icon: 'list' }
+      },
+      {
+        path: '/user/admin/list',
+        name: 'UserAdminList',
+        component: () => import('@/views/user/admin/list'),
+        meta: { title: '管理员列表', icon: 'list' }
+      },
+      {
+        path: '/user/admin/add',
+        name: 'UserAdminAdd',
+        component: () => import('@/views/user/admin/add'),
+        meta: { title: '添加管理员', icon: 'add' }
+      }
+    ]
+  },
+  {
     path: 'external-link',
     component: Layout,
     children: [
@@ -119,7 +145,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
