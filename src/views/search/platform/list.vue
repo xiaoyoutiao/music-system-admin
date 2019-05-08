@@ -11,6 +11,11 @@
             >{{ scope.row.isSupportDesc }}</el-tag>
           </template>
         </el-table-column>
+        <el-table-column label="是否默认" width="180">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.isDefault" type="'primary'">默认</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot="header">
             <el-button size="mini" type="success" @click="handlerAdd">Add New</el-button>
@@ -31,21 +36,13 @@
 </template>
 
 <script>
-import { getPlatformList } from '@/api/platform'
+import { getPlatformList, removePlatform } from '@/api/platform'
 
 export default {
   components: {},
   data() {
     return {
-      platformList: [
-        {
-          _id: '1',
-          name: 'QQ音乐',
-          value: 'qq',
-          isSupport: true,
-          isSupportDesc: '支持'
-        }
-      ],
+      platformList: [],
       buttonGroup: [
         { label: 'Edit', handler: this.handlerEdit },
         { label: 'Delete', handler: this.handlerDelete }
@@ -55,20 +52,26 @@ export default {
   computed: {},
   watch: {},
   created() {
-    getPlatformList().then(_data => {
-      if (_data) this.platformList = _data.list
-    })
+    this.getList()
   },
   mounted() {},
   methods: {
+    getList() {
+      getPlatformList().then(_data => {
+        if (_data) this.platformList = _data.list
+      })
+    },
     handlerAdd() {
       this.$router.push({ name: 'PlatformAdd' })
     },
     handlerEdit(row) {
       this.$router.push({ name: 'PlatformEdit', params: row })
     },
-    handlerDelete() {
-      alert('删除')
+    handlerDelete(row) {
+      removePlatform({ _id: row._id }).then(() => {
+        this.$message({ message: '删除成功', type: 'success' })
+        this.getList()
+      })
     }
   }
 }

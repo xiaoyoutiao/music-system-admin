@@ -1,9 +1,15 @@
 <template>
   <div class="view-wrap">
     <el-table :data="searchResult" height="500" border style="width: 100%">
-      <el-table-column prop="date" label="歌单标题" />
-      <el-table-column prop="address" label="封面" />
-      <el-table-column prop="songsCount" label="歌曲数量" />
+      <el-table-column prop="title" label="歌单标题" width="180" align="center" />
+      <el-table-column prop="description" label="描述" align="center" />
+      <el-table-column prop="cover" label="封面" width="120">
+        <template slot-scope="scope">
+          <BaseImage :src="scope.row.cover" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="songsCount" label="歌曲数量" width="80" align="center" />
+      <el-table-column prop="createDate" label="创建时间" :formatter="formatterCreateDate" />
       <el-table-column label="操作">
         <template slot="header">
           <el-button size="mini" type="success" @click="handlerAdd">Add New</el-button>
@@ -25,20 +31,16 @@
 </template>
 
 <script>
+import { songlistGetList, songlistDelete } from '@/api/share'
+import BaseImage from '@/components/base/BaseImage'
+
 export default {
-  components: {},
+  components: {
+    BaseImage
+  },
   data() {
     return {
-      searchResult: [
-        {
-          _id: '',
-          title: '像暗杀似的绕到背后拥抱你',
-          description:
-                '自打我出生以来啊，就独得上帝恩宠，我劝上帝一定要雨露均沾，可上帝非是不听呢，就让我单身，就让我单身',
-          cover:
-                'http://b-ssl.duitang.com/uploads/item/201705/29/20170529123626_f32Tv.jpeg'
-        }
-      ],
+      searchResult: [],
       buttonGroup: [
         { label: 'Check', handler: this.handlerCheck },
         { label: 'Edit', handler: this.handlerEdit },
@@ -48,9 +50,16 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this.getList()
+  },
   mounted() {},
   methods: {
+    getList() {
+      songlistGetList().then(_res => {
+        this.searchResult = _res
+      })
+    },
     convertBtnType(label) {
       const obj = {
         Check: '',
@@ -59,17 +68,22 @@ export default {
       }
       return obj[label] || ''
     },
+    formatterCreateDate(row, column, cellValue) {
+      return cellValue
+    },
     handlerAdd() {
       this.$router.push({ name: 'ShareSongListAdd' })
     },
     handlerCheck(row) {
-      this.$router.push({ name: 'ShareSongListCheck' })
+      this.$router.push({ name: 'ShareSongListCheck', params: row })
     },
     handlerEdit(row) {
       this.$router.push({ name: 'ShareSongListEdit', params: row })
     },
     handlerDelete(row) {
-      alert('delete')
+      songlistDelete({ _id: row._id }).then(() => {
+        this.getList()
+      })
     }
   }
 }

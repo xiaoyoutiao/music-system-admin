@@ -5,8 +5,8 @@
         <el-form-item label="歌单标题" prop="title">
           <el-input v-model="songList.title" />
         </el-form-item>
-        <el-form-item label="封面" prop="cover">
-          <BaseUploadSingle />
+        <el-form-item label="封面">
+          <BaseUploadSingle :src.sync="songList.cover" />
         </el-form-item>
         <el-form-item label="描述" prop="description">
           <el-input
@@ -26,6 +26,7 @@
 
 <script>
 import BaseUploadSingle from '@/components/base/BaseUploadSingle'
+import { songlistAdd } from '@/api/share'
 
 export default {
   components: {
@@ -62,7 +63,15 @@ export default {
         this.allowSubmit = isPass
       })
     },
-    onSubmit() {}
+    handlerOnUpload(imageUrl) {
+      this.songList.cover = imageUrl
+    },
+    onSubmit() {
+      songlistAdd(this.songList).then(() => {
+        this.$message({ message: '添加成功', type: 'success' })
+        this.$router.back()
+      })
+    }
   }
 }
 </script>

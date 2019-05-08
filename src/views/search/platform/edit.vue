@@ -11,6 +11,9 @@
         <el-form-item label="是否支持" prop="isSupport">
           <el-switch v-model="platform.isSupport" />
         </el-form-item>
+        <el-form-item label="是否默认" prop="isDefault">
+          <el-switch v-model="platform.isDefault" />
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" :disabled="!allowSubmit" @click="onSubmit">修改</el-button>
         </el-form-item>
@@ -20,6 +23,8 @@
 </template>
 
 <script>
+import { updatePlatform } from '@/api/platform'
+
 export default {
   components: {},
   data() {
@@ -29,7 +34,8 @@ export default {
         _id: '',
         name: '',
         value: '',
-        isSupport: false
+        isSupport: false,
+        isDefault: false
       }
     }
   },
@@ -53,6 +59,7 @@ export default {
     this.platform.name = routerParams.name
     this.platform.value = routerParams.value
     this.platform.isSupport = routerParams.isSupport
+    this.platform.isDefault = routerParams.isDefault
   },
   mounted() {},
   methods: {
@@ -61,7 +68,12 @@ export default {
         this.allowSubmit = isPass
       })
     },
-    onSubmit() {}
+    onSubmit() {
+      updatePlatform(this.platform).then(() => {
+        this.$message({ message: '更新成功', type: 'success' })
+        this.$router.back()
+      })
+    }
   }
 }
 </script>

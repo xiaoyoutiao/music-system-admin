@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { addPlatform } from '@/api/platform'
+
 export default {
   components: {},
   data() {
@@ -54,7 +56,12 @@ export default {
         this.allowSubmit = isPass
       })
     },
-    onSubmit() {}
+    onSubmit() {
+      addPlatform(this.platform).then(() => {
+        this.$message({ message: '添加成功', type: 'success' })
+        this.$router.back()
+      })
+    }
   }
 }
 </script>

@@ -8,16 +8,21 @@
     :before-upload="beforeAvatarUpload"
     :style="uploadStyle"
   >
-    <img v-if="imageUrl" :src="imageUrl" class="avatar" :style="uploadStyle">
+    <img v-if="src" :src="src" class="avatar" :style="uploadStyle">
     <i v-else class="el-icon-plus avatar-uploader-icon" :style="uploadStyle" />
   </el-upload>
 </template>
 
 <script>
 import { imgUploadUrl } from '@/api/url'
+
 export default {
   components: {},
   props: {
+    src: {
+      type: String,
+      default: ''
+    },
     width: {
       type: String,
       default: '150px'
@@ -29,8 +34,7 @@ export default {
   },
   data() {
     return {
-      imgUploadUrl: imgUploadUrl,
-      imageUrl: ''
+      imgUploadUrl: imgUploadUrl
     }
   },
   computed: {
@@ -47,8 +51,8 @@ export default {
   mounted() {},
   methods: {
     handleAvatarSuccess(res, file) {
-      console.log('res', res)
-      console.log('file', file)
+      this.$emit('update:src', res.data.url)
+      this.$emit('on-upload', res.data.url)
     },
     beforeAvatarUpload() {}
   }

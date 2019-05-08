@@ -1,31 +1,39 @@
 import request from '@/utils/request'
 
-export function addAdmin(data) { // 添加管理员
+// 登录
+export function login(data) {
+  return request({
+    url: '/admin/login',
+    method: 'post',
+    data
+  })
+}
+export function loginOut() {
+  return request({
+    url: '/admin/logout',
+    method: 'post'
+  })
+}
+// 添加管理员
+export function addAdmin(data) {
   return request({
     url: '/admin/user/admin/add',
     method: 'post',
     data
   })
 }
-
-export function getAdminList() { // 获取网站管理员信息
+// 获取网站管理员信息
+export function getAdminList() {
   return request({
     url: '/admin/user/admin/list',
     method: 'get'
   })
 }
-
-export function getUserList() { // 获取注册用户列表
+// 获取注册用户列表
+export function getUserList() {
   return request({
     url: '/admin/user/list',
     method: 'get'
-  })
-}
-export function login(data) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data
   })
 }
 
