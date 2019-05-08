@@ -1,20 +1,15 @@
 <template>
   <div class="view-wrap">
     <div class="form-box">
-      <el-form ref="songListRef" :rules="rules" :model="songList" label-width="100px">
-        <el-form-item label="歌单标题" prop="title">
-          <el-input v-model="songList.title" />
+      <el-form ref="platformRef" :rules="rules" :model="platform" label-width="100px">
+        <el-form-item label="平台名称" prop="name">
+          <el-input v-model="platform.name" />
         </el-form-item>
-        <el-form-item label="封面" prop="cover">
-          <BaseUploadSingle />
+        <el-form-item label="平台参数值" prop="value">
+          <el-input v-model="platform.value" />
         </el-form-item>
-        <el-form-item label="描述" prop="description">
-          <el-input
-            v-model="songList.description"
-            rows="3"
-            type="textarea"
-            placeholder="描述您此时的感想"
-          />
+        <el-form-item label="是否支持" prop="isSupport">
+          <el-switch v-model="platform.isSupport" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" :disabled="!allowSubmit" @click="onSubmit">立即添加</el-button>
@@ -25,29 +20,26 @@
 </template>
 
 <script>
-import BaseUploadSingle from '@/components/base/BaseUploadSingle'
-
 export default {
-  components: {
-    BaseUploadSingle
-  },
+  components: {},
   data() {
     return {
       allowSubmit: false,
-      songList: {
-        title: '',
-        cover: '',
-        description: ''
+      platform: {
+        name: '',
+        value: '',
+        isSupport: false
       }
     }
   },
   computed: {
     rules: () => ({
-      title: [{ required: true, message: '必须填写歌单标题' }]
+      name: [{ required: true, message: '必须填写平台名称' }],
+      value: [{ required: true, message: '必须填写平台参数值' }]
     })
   },
   watch: {
-    songList: {
+    platform: {
       deep: true,
       handler: function() {
         this.validatorForm()
@@ -58,7 +50,7 @@ export default {
   mounted() {},
   methods: {
     validatorForm() {
-      this.$refs['songListRef'].validate(isPass => {
+      this.$refs['platformRef'].validate(isPass => {
         this.allowSubmit = isPass
       })
     },

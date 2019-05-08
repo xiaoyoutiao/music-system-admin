@@ -12,6 +12,9 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180">
+          <template slot="header">
+            <el-button size="mini" type="success" @click="handlerAdd">Add New</el-button>
+          </template>
           <template slot-scope="scope">
             <el-button
               v-for="btn in buttonGroup"
@@ -20,11 +23,6 @@
               size="mini"
               @click="btn.handler(scope.row)"
             >{{ btn.label }}</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="80">
-          <template slot="header">
-            <el-button size="mini" type="success" @click="handlerAdd">Add</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -39,7 +37,15 @@ export default {
   components: {},
   data() {
     return {
-      platformList: [],
+      platformList: [
+        {
+          _id: '1',
+          name: 'QQ音乐',
+          value: 'qq',
+          isSupport: true,
+          isSupportDesc: '支持'
+        }
+      ],
       buttonGroup: [
         { label: 'Edit', handler: this.handlerEdit },
         { label: 'Delete', handler: this.handlerDelete }
@@ -56,10 +62,10 @@ export default {
   mounted() {},
   methods: {
     handlerAdd() {
-      alert('添加')
+      this.$router.push({ name: 'PlatformAdd' })
     },
-    handlerEdit() {
-      alert('编辑')
+    handlerEdit(row) {
+      this.$router.push({ name: 'PlatformEdit', params: row })
     },
     handlerDelete() {
       alert('删除')

@@ -17,7 +17,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :disabled="!allowSubmit" @click="onSubmit">立即添加</el-button>
+          <el-button type="primary" :disabled="!allowSubmit" @click="onSubmit">修改</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -54,7 +54,9 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    const {} = this.$router.params
+  },
   mounted() {},
   methods: {
     validatorForm() {

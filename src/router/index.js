@@ -57,33 +57,64 @@ export const constantRoutes = [
   {
     path: '/share',
     component: Layout,
-    redirect: '/share/songList',
     name: 'Share',
     meta: { title: '分享相关', icon: 'link' },
     children: [
       {
-        path: 'songList/add',
-        name: 'ShareSongListAdd',
-        component: () => import('@/views/share/songlist/add'),
-        meta: { title: '添加歌单', icon: 'add' }
-      },
-      {
         path: 'songList',
         name: 'ShareSongList',
-        component: () => import('@/views/share/songlist/list'),
-        meta: { title: '歌单列表', icon: 'list' }
-      },
-      {
-        path: 'songs/add',
-        name: 'ShareSongsAdd',
-        component: () => import('@/views/share/songs/add'),
-        meta: { title: '添加歌曲', icon: 'add' }
+        component: () => import('@/views/share/songlist'),
+        redirect: '/share/songList/list',
+        children: [
+          {
+            path: 'list',
+            name: 'ShareSongListList',
+            component: () => import('@/views/share/songlist/list'),
+            meta: { title: '分享歌单', icon: 'list' }
+          },
+          {
+            path: 'songList/add',
+            name: 'ShareSongListAdd',
+            component: () => import('@/views/share/songlist/add'),
+            meta: { title: '分享歌单 / 添加' },
+            hidden: true
+          },
+          {
+            path: 'songList/check',
+            name: 'ShareSongListCheck',
+            component: () => import('@/views/share/songlist/check'),
+            meta: { title: '分享歌单 / 歌曲' },
+            hidden: true
+          },
+          {
+            path: 'songList/edit',
+            name: 'ShareSongListEdit',
+            component: () => import('@/views/share/songlist/edit'),
+            meta: { title: '分享歌单 / 编辑' },
+            hidden: true
+          }
+        ]
       },
       {
         path: 'songs',
         name: 'ShareSongs',
-        component: () => import('@/views/share/songs/list'),
-        meta: { title: '歌曲列表', icon: 'music' }
+        component: () => import('@/views/share/songs'),
+        redirect: '/share/songs/list',
+        children: [
+          {
+            path: 'list',
+            name: 'ShareSongsList',
+            component: () => import('@/views/share/songs/list'),
+            meta: { title: '分享歌曲', icon: 'music' }
+          },
+          {
+            path: 'add',
+            name: 'ShareSongsAdd',
+            component: () => import('@/views/share/songs/add'),
+            meta: { title: '分享歌曲 / 添加' },
+            hidden: true
+          }
+        ]
       }
     ]
   },
@@ -92,20 +123,42 @@ export const constantRoutes = [
     path: '/search',
     name: 'Search',
     component: Layout,
-    redirect: '/search/index',
+    redirect: '/search/platform/list',
     meta: { title: '搜索相关', icon: 'search' },
     children: [
+      // {
+      //   path: 'index',
+      //   name: 'Search',
+      //   component: () => import('@/views/search/songs'),
+      //   meta: { title: '搜索歌曲', icon: 'list' }
+      // },
       {
-        path: 'index',
-        name: 'Search',
-        component: () => import('@/views/search/songs'),
-        meta: { title: '搜索歌曲', icon: 'list' }
-      },
-      {
-        path: 'setting',
-        name: 'SearchSetting',
-        component: () => import('@/views/search/setting'),
-        meta: { title: '搜索设置', icon: 'setting' }
+        path: 'platform',
+        name: 'Platform',
+        component: () => import('@/views/search/platform'),
+        redirect: '/search/index/platform/list',
+        children: [
+          {
+            path: 'list',
+            name: 'PlatformList',
+            component: () => import('@/views/search/platform/list'),
+            meta: { title: '平台', icon: 'platform' }
+          },
+          {
+            path: 'add',
+            name: 'PlatformAdd',
+            component: () => import('@/views/search/platform/add'),
+            meta: { title: '添加' },
+            hidden: true
+          },
+          {
+            path: 'edit',
+            name: 'PlatformEdit',
+            component: () => import('@/views/search/platform/edit'),
+            meta: { title: '编辑' },
+            hidden: true
+          }
+        ]
       }
     ]
   },
