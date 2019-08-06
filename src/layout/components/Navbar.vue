@@ -11,7 +11,8 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="''" class="user-avatar">
+          <!-- <img :src="''" class="user-avatar"> -->
+          <BaseImage :src="portrait" />
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -31,16 +32,21 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import BaseImage from '@/components/base/BaseImage'
 import { loginOut } from '@/api/user'
 import { removeToken } from '@/utils/auth'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    BaseImage
   },
   computed: {
-    ...mapGetters(['sidebar', 'avatar'])
+    ...mapGetters(['sidebar', 'avatar']),
+    portrait() {
+      return this.$store.state.user.portrait
+    }
   },
   methods: {
     toggleSideBar() {

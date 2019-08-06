@@ -185,6 +185,13 @@ export const constantRoutes = [
         name: 'UserAdminAdd',
         component: () => import('@/views/user/admin/add'),
         meta: { title: '添加管理员', icon: 'add' }
+      },
+      {
+        path: '/user/admin/edit',
+        name: 'UserAdminEdit',
+        component: () => import('@/views/user/admin/edit'),
+        meta: { title: '添加管理员', icon: 'add' },
+        hidden: true
       }
     ]
   },
@@ -193,7 +200,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'https://localhost:8080',
+        path: 'http://localhost:8080',
         meta: { title: '返回前台', icon: 'link' }
       }
     ]

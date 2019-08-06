@@ -16,6 +16,9 @@
             placeholder="描述您此时的感想"
           />
         </el-form-item>
+        <el-form-item label="是否分享" prop="isSupport">
+          <el-switch v-model="songList.isShare" />
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" :disabled="!allowSubmit" @click="onSubmit">修改</el-button>
         </el-form-item>

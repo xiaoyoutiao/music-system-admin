@@ -95,3 +95,12 @@ export function shareSonglistGetSongs(data) {
     params: data
   })
 }
+
+// 移除分享歌单歌曲
+export function shareSonglistRemoveSong(data) {
+  return request({
+    url: '/admin/share/songlist/removeSong',
+    method: 'post',
+    data: data
+  })
+}

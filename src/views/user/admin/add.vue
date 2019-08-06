@@ -39,9 +39,9 @@ export default {
       account: [
         { required: true, message: '帐号不能为空' },
         {
-          min: 8,
+          min: 5,
           max: 20,
-          message: '帐号长度在 8 到 20 个字符',
+          message: '帐号长度在 5 到 20 个字符',
           trigger: 'blur'
         }
       ],

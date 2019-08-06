@@ -18,7 +18,7 @@
         </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot="header">
-            <el-button size="mini" type="success" @click="handlerAdd">Add New</el-button>
+            <el-button size="mini" type="success" @click="handlerAdd">添加</el-button>
           </template>
           <template slot-scope="scope">
             <el-button

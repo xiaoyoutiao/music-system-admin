@@ -8,10 +8,18 @@ export function login(data) {
     data
   })
 }
+// 退出登录
 export function loginOut() {
   return request({
     url: '/admin/logout',
     method: 'post'
+  })
+}
+// 获取管理员个人信息
+export function getAdminInfo() {
+  return request({
+    url: '/admin/user/userInfo',
+    method: 'get'
   })
 }
 // 添加管理员
@@ -49,5 +57,13 @@ export function logout() {
   return request({
     url: '/user/logout',
     method: 'post'
+  })
+}
+// 更改管理员分享权限
+export function editIshare(data) {
+  return request({
+    url: '/admin/user/admin/editIshare',
+    method: 'post',
+    data
   })
 }

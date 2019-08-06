@@ -60,7 +60,7 @@ export default {
         // height: 50px;
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: 100% auto;
         &-not {
             border: 1px solid #ccc;
             background-color: #f5f7fa;

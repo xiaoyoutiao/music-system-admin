@@ -16,7 +16,12 @@
         />
       </el-select>
       <div class="search-input">
-        <el-input v-model="keyWord" size="mini" placeholder="输入关键字搜索" />
+        <el-input
+          v-model="keyWord"
+          size="mini"
+          placeholder="输入关键字搜索"
+          @keyup.enter.native="handlerSearch"
+        />
       </div>
       <el-button size="mini" :disabled="!allowSearch" @click="handlerSearch">搜索</el-button>
     </div>

@@ -10,9 +10,17 @@
       </el-table-column>
       <el-table-column prop="songsCount" label="歌曲数量" width="80" align="center" />
       <el-table-column prop="createDate" label="创建时间" :formatter="formatterCreateDate" />
+      <el-table-column prop="isShare" label="是否分享" width="100" align="center">
+        <template slot-scope="scope">
+          <el-tag
+            v-if="scope.row.isShare"
+            type="primary"
+          >{{ scope.row.isShare ? '分享' : '' }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="操作">
         <template slot="header">
-          <el-button size="mini" type="success" @click="handlerAdd">Add New</el-button>
+          <el-button size="mini" type="success" @click="handlerAdd">添加</el-button>
         </template>
         <template slot-scope="scope">
           <div>

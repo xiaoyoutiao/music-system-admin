@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { shareSonglistGetSongs } from '@/api/share'
+import { shareSonglistGetSongs, shareSonglistRemoveSong } from '@/api/share'
 import BaseImage from '@/components/base/BaseImage'
 
 export default {
@@ -40,7 +40,7 @@ export default {
       songlistId: '', // 歌单id
       songs: [{}], // 搜索结果列表
       buttonGroup: [
-        { label: 'Remove', handler: this.handlerAdd, type: 'danger' }
+        { label: 'Remove', handler: this.handlerRemove, type: 'danger' }
       ]
     }
   },
@@ -59,8 +59,14 @@ export default {
         this.songs = _data
       })
     },
-    handlerAdd() {
-      alert('add')
+    handlerRemove(song) {
+      shareSonglistRemoveSong({
+        songlistId: this.songlistId,
+        songId: song._id
+      }).then(() => {
+        this.$message({ message: '移除成功', type: 'success' })
+        this.getSongs()
+      })
     }
   }
 }

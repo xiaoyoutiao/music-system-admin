@@ -14,7 +14,7 @@
       <el-table-column prop="createDate" label="添加日期" width="180" />
       <el-table-column label="操作" header-align="center">
         <template slot="header">
-          <el-button type="success" size="mini" @click="handlerAdd">Add New</el-button>
+          <el-button type="success" size="mini" @click="handlerAdd">添加</el-button>
         </template>
         <template slot-scope="scope">
           <div class="button-group">
@@ -43,7 +43,7 @@ export default {
     return {
       songs: [], // 搜索结果列表
       buttonGroup: [
-        { label: 'Remove', handler: this.handlerRemove, type: 'danger' }
+        { label: '移除', handler: this.handlerRemove, type: 'danger' }
       ]
     }
   },
